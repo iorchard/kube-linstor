@@ -1,0 +1,21 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: linstor-pod-2r
+  namespace: default
+spec:
+  containers:
+  - name: debian
+    image: debian:bullseye-slim
+    command: [/bin/bash]
+    args: ["-c", "while true; do sleep 10; done"]
+    volumeMounts:
+    - name: linstor-2r-volume
+      mountPath: /data
+    ports:
+    - containerPort: 80
+  volumes:
+  - name: linstor-2r-volume
+    persistentVolumeClaim:
+      claimName: "linstor-2r-volume"
